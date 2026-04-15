@@ -1,0 +1,40 @@
+<footer class="footer">
+  <div class="container">
+    <div class="footer-top">
+      <div class="footer-brand">
+        <a href="#" class="footer-logo">
+          <span class="footer-logo-icon">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none">
+              <path d="M13 2L3 14h9l-1 8 10-12h-9l1-8z" fill="currentColor"/>
+            </svg>
+          </span>
+          <span class="footer-logo-text">Vm<span>Software</span></span>
+        </a>
+        <p class="footer-desc">Software que impulsa negocios. Codigo limpio, arquitectura solida, resultados reales.</p>
+        <div class="footer-social">
+          @for (social of socialLinks; track social.label) {
+            <a [href]="social.href" class="social-link" [attr.aria-label]="social.label">
+              {{ social.label }}
+            </a>
+          }
+        </div>
+      </div>
+
+      @for (col of footerLinks; track col.title) {
+        <div class="footer-col">
+          <h4>{{ col.title }}</h4>
+          <ul>
+            @for (link of col.links; track link.label) {
+              <li><a [href]="link.href">{{ link.label }}</a></li>
+            }
+          </ul>
+        </div>
+      }
+    </div>
+
+    <div class="footer-bottom">
+      <span>&copy; {{ currentYear }} VmSoftware. Todos los derechos reservados.</span>
+      <span>Desde Latinoamerica para el mundo</span>
+    </div>
+  </div>
+</footer>

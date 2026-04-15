@@ -1,0 +1,42 @@
+<section class="process" id="proceso">
+  <div class="container">
+    <span class="section-label">Proceso</span>
+    <h2 class="section-title" appScrollAnimate>
+      Como <span class="highlight">trabajamos</span>
+    </h2>
+    <p class="section-subtitle" appScrollAnimate animationDelay="0.1s">
+      Metodologia probada que garantiza entregas predecibles y resultados excepcionales.
+    </p>
+
+    <div class="process-grid">
+      <div class="timeline-line">
+        <div class="timeline-scan"></div>
+      </div>
+
+      @for (step of steps; track step.number; let i = $index) {
+        <div class="step" appScrollAnimate [animationDelay]="(i * 0.12) + 's'">
+          <div class="step-number-wrapper">
+            <div class="step-number-glow"></div>
+            <span class="step-number">{{ step.number }}</span>
+          </div>
+
+          <div class="step-content">
+            <h3 class="step-title">{{ step.title }}</h3>
+            <p class="step-desc">{{ step.description }}</p>
+
+            <ul class="step-details">
+              @for (detail of step.details; track detail) {
+                <li>
+                  <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
+                    <polyline points="20 6 9 17 4 12"/>
+                  </svg>
+                  <span>{{ detail }}</span>
+                </li>
+              }
+            </ul>
+          </div>
+        </div>
+      }
+    </div>
+  </div>
+</section>

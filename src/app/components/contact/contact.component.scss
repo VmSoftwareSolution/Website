@@ -1,0 +1,201 @@
+.contact {
+  padding: 160px 0;
+}
+
+// CTA Banner
+.cta-banner {
+  position: relative;
+  padding: 88px 0;
+  text-align: center;
+  overflow: hidden;
+  margin-bottom: 120px;
+}
+
+.cta-glow {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 600px;
+  height: 400px;
+  background: radial-gradient(ellipse, rgba(255, 107, 0, 0.08), transparent 60%);
+  animation: glow-pulse 4s ease infinite;
+  pointer-events: none;
+}
+
+@keyframes glow-pulse {
+  0%, 100% { opacity: 0.6; transform: translate(-50%, -50%) scale(1); }
+  50% { opacity: 1; transform: translate(-50%, -50%) scale(1.1); }
+}
+
+.cta-particles {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+
+  .particle {
+    position: absolute;
+    width: 4px;
+    height: 4px;
+    border-radius: 50%;
+    background: var(--color-primary);
+    opacity: 0.3;
+
+    &.p1 { top: 20%; left: 15%; animation: float-particle 6s ease infinite; }
+    &.p2 { top: 60%; right: 20%; animation: float-particle 8s ease infinite 1s; }
+    &.p3 { bottom: 25%; left: 40%; animation: float-particle 7s ease infinite 2s; }
+  }
+}
+
+@keyframes float-particle {
+  0%, 100% { transform: translateY(0) translateX(0); }
+  25% { transform: translateY(-15px) translateX(10px); }
+  50% { transform: translateY(-5px) translateX(-8px); }
+  75% { transform: translateY(-20px) translateX(5px); }
+}
+
+.cta-inner {
+  position: relative;
+  z-index: 1;
+}
+
+.cta-title {
+  font-family: var(--font-heading);
+  font-size: clamp(2rem, 4vw, 3.2rem);
+  font-weight: 700;
+  letter-spacing: -1.5px;
+  line-height: 1.1;
+  margin-bottom: 16px;
+
+  .highlight {
+    background: linear-gradient(135deg, var(--color-primary), var(--color-accent));
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+  }
+}
+
+.cta-subtitle {
+  font-size: 1rem;
+  color: var(--color-text-secondary);
+  margin-bottom: 32px;
+}
+
+.cta-btn {
+  font-size: 0.92rem;
+  padding: 16px 36px;
+}
+
+// Contact Grid
+.contact-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 80px;
+  align-items: start;
+}
+
+.contact-desc {
+  font-size: 1rem;
+  color: var(--color-text-secondary);
+  line-height: 1.7;
+  margin-bottom: 40px;
+}
+
+.contact-info {
+  display: flex;
+  flex-direction: column;
+  gap: 18px;
+}
+
+.info-item {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+
+  svg {
+    color: var(--color-primary);
+    flex-shrink: 0;
+  }
+
+  a, span {
+    font-size: 0.9rem;
+    color: var(--color-text-secondary);
+    transition: color 0.2s ease;
+  }
+
+  a:hover { color: var(--color-primary); }
+}
+
+// Form
+.contact-form {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+  padding: 40px;
+  background: var(--color-bg-card);
+  border: 1px solid var(--color-border);
+  border-radius: var(--border-radius);
+  overflow: hidden;
+}
+
+.form-edge-glow {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 2px;
+  background: linear-gradient(90deg, transparent, var(--color-primary), transparent);
+  opacity: 0;
+  transition: opacity 0.5s ease;
+  animation: edge-glow-slide 4s ease infinite;
+}
+
+@keyframes edge-glow-slide {
+  0%, 100% { opacity: 0; }
+  50% { opacity: 0.6; }
+}
+
+.form-row {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 14px;
+}
+
+.form-field {
+  input, textarea {
+    width: 100%;
+    padding: 16px 18px;
+    background: var(--color-bg-secondary);
+    border: 1px solid var(--color-border);
+    border-radius: 12px;
+    color: var(--color-text);
+    font-family: var(--font-body);
+    font-size: 0.88rem;
+    outline: none;
+    transition: border-color 0.3s ease, box-shadow 0.3s ease;
+    resize: vertical;
+
+    &::placeholder { color: var(--color-text-muted); }
+
+    &:focus {
+      border-color: var(--color-primary);
+      box-shadow: 0 0 0 3px rgba(255, 107, 0, 0.06);
+    }
+  }
+
+  textarea { min-height: 120px; }
+}
+
+.form-submit {
+  width: 100%;
+  margin-top: 4px;
+}
+
+@media (max-width: 768px) {
+  .contact { padding: 100px 0; }
+  .cta-banner { padding: 60px 0; margin-bottom: 80px; }
+  .contact-grid { grid-template-columns: 1fr; gap: 48px; }
+  .form-row { grid-template-columns: 1fr; }
+  .contact-form { padding: 28px; }
+}

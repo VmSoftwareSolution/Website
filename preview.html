@@ -1,0 +1,675 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>VmSoftware — Construimos el Futuro Digital</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&family=Space+Grotesk:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --color-bg: #0A0A0A;
+      --color-bg-secondary: #111111;
+      --color-bg-card: #161616;
+      --color-bg-card-hover: #1a1a1a;
+      --color-primary: #E53935;
+      --color-primary-hover: #FF5252;
+      --color-text: #FFFFFF;
+      --color-text-secondary: #9E9E9E;
+      --color-text-muted: #666666;
+      --color-border: #1E1E1E;
+      --color-border-hover: #333333;
+      --font-heading: 'Space Grotesk', sans-serif;
+      --font-body: 'Inter', sans-serif;
+      --max-width: 1440px;
+      --padding-x: 80px;
+      --border-radius: 12px;
+      --transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    }
+
+    *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+    html { scroll-behavior: smooth; }
+    body {
+      font-family: var(--font-body);
+      background: var(--color-bg);
+      color: var(--color-text);
+      line-height: 1.6;
+      overflow-x: hidden;
+      -webkit-font-smoothing: antialiased;
+    }
+    a { text-decoration: none; color: inherit; transition: var(--transition); }
+    ul { list-style: none; }
+    .container { max-width: var(--max-width); margin: 0 auto; padding: 0 var(--padding-x); }
+    ::selection { background: var(--color-primary); color: white; }
+
+    .section-label {
+      display: inline-flex; align-items: center; gap: 8px;
+      font-size: 0.75rem; font-weight: 500; letter-spacing: 3px;
+      text-transform: uppercase; color: var(--color-primary); margin-bottom: 24px;
+    }
+    .section-label::before, .section-label::after {
+      content: ''; width: 24px; height: 1px; background: var(--color-primary);
+    }
+
+    .btn {
+      display: inline-flex; align-items: center; gap: 8px;
+      padding: 14px 28px; border-radius: 8px; font-family: var(--font-body);
+      font-size: 0.9rem; font-weight: 600; cursor: pointer; border: none;
+      transition: var(--transition);
+    }
+    .btn-primary { background: var(--color-primary); color: white; }
+    .btn-primary:hover { background: var(--color-primary-hover); transform: translateY(-2px); box-shadow: 0 8px 25px rgba(229,57,53,0.3); }
+    .btn-ghost { background: transparent; color: var(--color-text-secondary); padding: 14px 0; }
+    .btn-ghost:hover { color: var(--color-text); }
+
+    /* ===== HEADER ===== */
+    .header {
+      position: fixed; top: 0; left: 0; right: 0; z-index: 1000;
+      padding: 20px 0; transition: var(--transition);
+    }
+    .header.scrolled {
+      background: rgba(10,10,10,0.9); backdrop-filter: blur(20px);
+      border-bottom: 1px solid var(--color-border); padding: 14px 0;
+    }
+    .header-inner { display: flex; align-items: center; justify-content: space-between; }
+    .logo { display: flex; align-items: center; gap: 10px; }
+    .logo-icon {
+      width: 32px; height: 32px; display: flex; align-items: center; justify-content: center;
+      background: var(--color-primary); color: white; font-family: var(--font-heading);
+      font-weight: 700; font-size: 1.1rem; border-radius: 6px;
+    }
+    .logo-text { font-family: var(--font-heading); font-size: 1.2rem; color: var(--color-text-secondary); }
+    .logo-bold { font-weight: 700; color: var(--color-text); }
+    .nav-desktop ul { display: flex; gap: 36px; }
+    .nav-desktop a {
+      font-size: 0.875rem; font-weight: 500; color: var(--color-text-secondary);
+      position: relative;
+    }
+    .nav-desktop a::after {
+      content: ''; position: absolute; bottom: -4px; left: 0; width: 0; height: 2px;
+      background: var(--color-primary); transition: var(--transition);
+    }
+    .nav-desktop a:hover { color: var(--color-text); }
+    .nav-desktop a:hover::after { width: 100%; }
+    .header-cta { padding: 10px 24px; font-size: 0.85rem; }
+
+    /* ===== HERO ===== */
+    .hero {
+      position: relative; min-height: 100vh; display: flex; align-items: center;
+      padding: 120px 0 60px; overflow: hidden;
+    }
+    .hero-bg { position: absolute; inset: 0; pointer-events: none; }
+    .hero-grid {
+      position: absolute; inset: 0;
+      background-image: linear-gradient(rgba(255,255,255,0.03) 1px, transparent 1px),
+                         linear-gradient(90deg, rgba(255,255,255,0.03) 1px, transparent 1px);
+      background-size: 60px 60px;
+    }
+    .hero-glow {
+      position: absolute; top: -200px; right: -200px; width: 600px; height: 600px;
+      background: radial-gradient(circle, rgba(229,57,53,0.08) 0%, transparent 70%);
+      border-radius: 50%;
+    }
+    .hero-content {
+      display: grid; grid-template-columns: 1fr 1fr; gap: 60px;
+      align-items: center; position: relative; z-index: 1;
+    }
+    .hero-title {
+      font-family: var(--font-heading); font-size: clamp(2.5rem, 5vw, 4.5rem);
+      font-weight: 800; line-height: 1.05; letter-spacing: -2px; margin-bottom: 24px;
+    }
+    .hero-title .highlight { color: var(--color-primary); display: block; }
+    .hero-description {
+      font-size: 1rem; line-height: 1.7; color: var(--color-text-secondary);
+      max-width: 480px; margin-bottom: 36px;
+    }
+    .hero-actions { display: flex; align-items: center; gap: 24px; margin-bottom: 60px; }
+    .hero-stats { display: flex; gap: 40px; padding-top: 40px; border-top: 1px solid var(--color-border); }
+    .stat-item { display: flex; flex-direction: column; gap: 4px; }
+    .stat-value { font-family: var(--font-heading); font-size: 2rem; font-weight: 700; }
+    .stat-suffix { color: var(--color-primary); font-size: 1.2rem; }
+    .stat-label { font-size: 0.75rem; font-weight: 500; text-transform: uppercase; letter-spacing: 2px; color: var(--color-text-muted); }
+
+    /* Dashboard Mockup */
+    .hero-visual { perspective: 1000px; }
+    .dashboard-mockup {
+      width: 520px; background: var(--color-bg-secondary);
+      border: 1px solid var(--color-border); border-radius: 16px; overflow: hidden;
+      transform: rotateY(-5deg) rotateX(2deg);
+      box-shadow: 0 20px 60px rgba(0,0,0,0.5), 0 0 0 1px rgba(255,255,255,0.05);
+    }
+    .mockup-header {
+      display: flex; align-items: center; gap: 12px; padding: 12px 16px;
+      background: rgba(255,255,255,0.03); border-bottom: 1px solid var(--color-border);
+    }
+    .mockup-dots { display: flex; gap: 6px; }
+    .dot { width: 10px; height: 10px; border-radius: 50%; }
+    .dot.red { background: #FF5F57; } .dot.yellow { background: #FEBC2E; } .dot.green { background: #28C840; }
+    .mockup-url { font-size: 0.7rem; color: var(--color-text-muted); }
+    .mockup-body { display: flex; min-height: 320px; }
+    .mockup-sidebar {
+      width: 48px; padding: 16px 8px; border-right: 1px solid var(--color-border);
+      display: flex; flex-direction: column; gap: 12px;
+    }
+    .sidebar-item { width: 32px; height: 32px; border-radius: 8px; background: rgba(255,255,255,0.04); }
+    .sidebar-item.active { background: var(--color-primary); }
+    .mockup-main { flex: 1; padding: 20px; display: flex; flex-direction: column; gap: 16px; }
+    .mockup-chart {
+      flex: 1; display: flex; align-items: flex-end; gap: 8px;
+      padding-bottom: 8px; border-bottom: 1px solid var(--color-border);
+    }
+    .chart-bar { flex: 1; background: rgba(255,255,255,0.08); border-radius: 4px 4px 0 0; }
+    .chart-bar.accent { background: var(--color-primary); }
+    .mockup-metrics { display: flex; gap: 12px; }
+    .metric-card {
+      flex: 1; padding: 14px; background: rgba(255,255,255,0.03);
+      border: 1px solid var(--color-border); border-radius: 10px;
+    }
+    .metric-card.accent { border-color: rgba(229,57,53,0.3); background: rgba(229,57,53,0.05); }
+    .metric-value { display: block; font-family: var(--font-heading); font-size: 1.2rem; font-weight: 700; margin-bottom: 2px; }
+    .metric-label { font-size: 0.7rem; color: var(--color-text-muted); }
+
+    /* ===== TECH STACK ===== */
+    .tech-stack { padding: 20px 0; border-top: 1px solid var(--color-border); border-bottom: 1px solid var(--color-border); overflow: hidden; }
+    .tech-track { overflow: hidden; mask-image: linear-gradient(to right, transparent, black 10%, black 90%, transparent); }
+    .tech-scroll { display: flex; align-items: center; width: max-content; animation: scroll 30s linear infinite; }
+    .tech-item { font-size: 0.8rem; font-weight: 500; letter-spacing: 2px; text-transform: uppercase; color: var(--color-text-muted); padding: 0 16px; }
+    .tech-sep { color: var(--color-border); font-size: 0.5rem; }
+    @keyframes scroll { 0% { transform: translateX(0); } 100% { transform: translateX(-50%); } }
+
+    /* ===== SERVICES ===== */
+    .services { padding: 120px 0; }
+    .services-header { text-align: center; max-width: 600px; margin: 0 auto 72px; }
+    .section-title {
+      font-family: var(--font-heading); font-size: clamp(2rem, 4vw, 3.5rem);
+      font-weight: 800; line-height: 1.1; letter-spacing: -1px; margin-bottom: 16px;
+    }
+    .section-title .highlight { color: var(--color-primary); }
+    .section-subtitle { font-size: 1rem; color: var(--color-text-secondary); }
+    .services-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 24px; }
+    .service-card {
+      position: relative; padding: 36px; background: var(--color-bg-card);
+      border: 1px solid var(--color-border); border-radius: var(--border-radius);
+      transition: var(--transition); overflow: hidden;
+    }
+    .service-card:hover { background: var(--color-bg-card-hover); border-color: var(--color-border-hover); transform: translateY(-4px); }
+    .service-card:hover .service-icon { color: var(--color-primary); background: rgba(229,57,53,0.1); }
+    .service-icon {
+      width: 48px; height: 48px; display: flex; align-items: center; justify-content: center;
+      background: rgba(255,255,255,0.05); border-radius: 12px; font-size: 1.2rem; margin-bottom: 20px; transition: var(--transition);
+    }
+    .service-title { font-family: var(--font-heading); font-size: 1.25rem; font-weight: 700; margin-bottom: 12px; }
+    .service-desc { font-size: 0.9rem; color: var(--color-text-secondary); line-height: 1.6; margin-bottom: 20px; }
+    .service-tags { display: flex; flex-wrap: wrap; gap: 8px; }
+    .tag { padding: 4px 12px; font-size: 0.72rem; font-weight: 500; color: var(--color-text-muted); border: 1px solid var(--color-border); border-radius: 100px; }
+    .service-number {
+      position: absolute; top: 16px; right: 20px; font-family: var(--font-heading);
+      font-size: 3.5rem; font-weight: 800; opacity: 0.04; line-height: 1;
+    }
+
+    /* ===== PROJECTS ===== */
+    .projects { padding: 120px 0; }
+    .projects-header { display: flex; justify-content: space-between; align-items: flex-end; margin-bottom: 64px; gap: 40px; }
+    .projects-header-right { max-width: 360px; font-size: 1rem; color: var(--color-text-secondary); text-align: right; }
+    .projects-list { display: flex; flex-direction: column; gap: 32px; }
+    .project-card {
+      position: relative; display: flex; justify-content: space-between; align-items: flex-end;
+      padding: 48px 56px; border-radius: 20px; border: 1px solid var(--color-border);
+      overflow: hidden; min-height: 360px; transition: var(--transition);
+    }
+    .project-card:hover { border-color: var(--color-border-hover); transform: translateY(-4px); }
+    .project-card:hover .project-bg-text { opacity: 0.07; transform: translateX(-10px); }
+    .project-bg-text {
+      position: absolute; top: -20px; right: 40px; font-family: var(--font-heading);
+      font-size: clamp(8rem, 15vw, 14rem); font-weight: 900; opacity: 0.04;
+      letter-spacing: -8px; line-height: 1; pointer-events: none; transition: var(--transition);
+    }
+    .project-content { position: relative; z-index: 1; max-width: 560px; }
+    .project-meta { display: flex; align-items: center; gap: 8px; margin-bottom: 16px; flex-wrap: wrap; }
+    .project-category {
+      padding: 4px 14px; font-size: 0.72rem; font-weight: 600; text-transform: uppercase;
+      letter-spacing: 1px; color: var(--color-primary); border: 1px solid rgba(229,57,53,0.3); border-radius: 100px;
+    }
+    .project-tag { padding: 4px 12px; font-size: 0.7rem; color: var(--color-text-muted); border: 1px solid var(--color-border); border-radius: 100px; }
+    .project-title { font-family: var(--font-heading); font-size: 1.6rem; font-weight: 700; margin-bottom: 12px; letter-spacing: -0.5px; }
+    .project-subtitle { color: var(--color-text-secondary); font-weight: 500; }
+    .project-desc { font-size: 0.9rem; color: var(--color-text-secondary); line-height: 1.7; margin-bottom: 24px; }
+    .project-link { display: inline-flex; align-items: center; gap: 8px; font-size: 0.85rem; font-weight: 600; color: var(--color-primary); }
+    .project-link:hover { gap: 12px; }
+    .project-brand {
+      position: absolute; bottom: 48px; right: 56px; display: flex; align-items: center; gap: 8px; opacity: 0.3;
+    }
+    .project-brand .brand-icon {
+      width: 24px; height: 24px; display: flex; align-items: center; justify-content: center;
+      background: var(--color-primary); color: white; font-family: var(--font-heading);
+      font-weight: 700; font-size: 0.75rem; border-radius: 4px;
+    }
+    .project-brand .brand-text { font-family: var(--font-heading); font-size: 0.85rem; color: var(--color-text-secondary); }
+
+    /* ===== STATS ===== */
+    .stats-section { padding: 120px 0; background: var(--color-bg-secondary); }
+    .stats-header { text-align: center; margin-bottom: 64px; }
+    .stats-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 24px; }
+    .stats-card {
+      display: flex; flex-direction: column; align-items: center; text-align: center;
+      padding: 40px 24px; background: var(--color-bg-card); border: 1px solid var(--color-border);
+      border-radius: var(--border-radius); transition: var(--transition);
+    }
+    .stats-card:hover { border-color: var(--color-border-hover); transform: translateY(-4px); }
+    .stats-icon { font-size: 1.5rem; margin-bottom: 16px; }
+    .stats-value { font-family: var(--font-heading); font-size: 2.5rem; font-weight: 800; margin-bottom: 8px; }
+    .stats-label { font-size: 0.9rem; font-weight: 600; margin-bottom: 8px; }
+    .stats-desc { font-size: 0.8rem; color: var(--color-text-muted); line-height: 1.5; }
+
+    /* ===== CONTACT ===== */
+    .contact { padding: 120px 0; }
+    .contact-inner { display: grid; grid-template-columns: 1fr 1fr; gap: 80px; align-items: start; }
+    .contact-title {
+      font-family: var(--font-heading); font-size: clamp(2rem, 4vw, 3rem);
+      font-weight: 800; line-height: 1.1; letter-spacing: -1px; margin-bottom: 16px;
+    }
+    .contact-title .highlight { color: var(--color-primary); }
+    .contact-desc { font-size: 1rem; color: var(--color-text-secondary); line-height: 1.7; margin-bottom: 40px; }
+    .contact-info { display: flex; flex-direction: column; gap: 24px; }
+    .info-item { display: flex; align-items: center; gap: 16px; }
+    .info-icon {
+      width: 44px; height: 44px; display: flex; align-items: center; justify-content: center;
+      background: rgba(255,255,255,0.04); border: 1px solid var(--color-border); border-radius: 10px;
+    }
+    .info-label { display: block; font-size: 0.75rem; color: var(--color-text-muted); text-transform: uppercase; letter-spacing: 1px; margin-bottom: 2px; }
+    .info-value { font-size: 0.95rem; font-weight: 500; }
+    .info-value:hover { color: var(--color-primary); }
+    .contact-form { display: flex; flex-direction: column; gap: 20px; }
+    .form-row { display: grid; grid-template-columns: 1fr 1fr; gap: 20px; }
+    .form-group { display: flex; flex-direction: column; gap: 8px; }
+    .form-group label { font-size: 0.8rem; font-weight: 500; color: var(--color-text-secondary); }
+    .form-group input, .form-group textarea {
+      width: 100%; padding: 14px 16px; background: var(--color-bg-card);
+      border: 1px solid var(--color-border); border-radius: 10px;
+      color: var(--color-text); font-family: var(--font-body); font-size: 0.9rem;
+      transition: var(--transition); outline: none; resize: vertical;
+    }
+    .form-group input::placeholder, .form-group textarea::placeholder { color: var(--color-text-muted); }
+    .form-group input:focus, .form-group textarea:focus { border-color: var(--color-primary); box-shadow: 0 0 0 3px rgba(229,57,53,0.1); }
+    .form-group textarea { min-height: 120px; }
+    .btn-submit { align-self: flex-start; margin-top: 8px; }
+
+    /* ===== FOOTER ===== */
+    .footer { padding: 80px 0 0; border-top: 1px solid var(--color-border); }
+    .footer-top { display: grid; grid-template-columns: 1.5fr 1fr 1fr 1fr; gap: 48px; padding-bottom: 64px; }
+    .footer-desc { font-size: 0.9rem; color: var(--color-text-muted); line-height: 1.6; margin-bottom: 24px; max-width: 280px; }
+    .footer-social { display: flex; gap: 16px; }
+    .social-link { font-size: 0.8rem; font-weight: 500; color: var(--color-text-muted); }
+    .social-link:hover { color: var(--color-primary); }
+    .footer-col-title { font-family: var(--font-heading); font-size: 0.85rem; font-weight: 600; text-transform: uppercase; letter-spacing: 1px; margin-bottom: 20px; }
+    .footer-col ul { display: flex; flex-direction: column; gap: 12px; }
+    .footer-col a { font-size: 0.85rem; color: var(--color-text-muted); }
+    .footer-col a:hover { color: var(--color-text); }
+    .footer-bottom {
+      display: flex; justify-content: space-between; align-items: center;
+      padding: 24px 0; border-top: 1px solid var(--color-border);
+    }
+    .footer-copy, .footer-tagline { font-size: 0.8rem; color: var(--color-text-muted); }
+    .heart { color: var(--color-primary); }
+
+    /* ===== RESPONSIVE ===== */
+    @media (max-width: 1200px) { :root { --padding-x: 48px; } }
+    @media (max-width: 1024px) {
+      .hero-content { grid-template-columns: 1fr; }
+      .hero-right { display: none; }
+      .services-grid { grid-template-columns: repeat(2, 1fr); }
+      .stats-grid { grid-template-columns: repeat(2, 1fr); }
+    }
+    @media (max-width: 768px) {
+      :root { --padding-x: 24px; }
+      .nav-desktop, .header-cta { display: none; }
+      .hero { padding: 100px 0 40px; min-height: auto; }
+      .hero-stats { flex-wrap: wrap; gap: 24px; }
+      .hero-actions { flex-direction: column; align-items: flex-start; }
+      .services { padding: 80px 0; }
+      .services-grid { grid-template-columns: 1fr; }
+      .projects-header { flex-direction: column; align-items: flex-start; }
+      .projects-header-right { text-align: left; }
+      .project-card { padding: 32px; min-height: auto; flex-direction: column; align-items: flex-start; }
+      .project-bg-text { font-size: 6rem !important; right: 16px; }
+      .contact-inner { grid-template-columns: 1fr; gap: 48px; }
+      .form-row { grid-template-columns: 1fr; }
+      .footer-top { grid-template-columns: 1fr 1fr; }
+      .footer-brand-col { grid-column: 1 / -1; }
+      .footer-bottom { flex-direction: column; gap: 8px; text-align: center; }
+      .stats-grid { grid-template-columns: 1fr; }
+    }
+  </style>
+</head>
+<body>
+
+<!-- ===== HEADER ===== -->
+<header class="header" id="header">
+  <div class="container header-inner">
+    <a href="#" class="logo">
+      <span class="logo-icon">V</span>
+      <span class="logo-text">Vm<span class="logo-bold">Software</span></span>
+    </a>
+    <nav class="nav-desktop">
+      <ul>
+        <li><a href="#servicios">Servicios</a></li>
+        <li><a href="#proyectos">Proyectos</a></li>
+        <li><a href="#nosotros">Nosotros</a></li>
+        <li><a href="#contacto">Contacto</a></li>
+      </ul>
+    </nav>
+    <a href="#contacto" class="btn btn-primary header-cta">Contáctanos</a>
+  </div>
+</header>
+
+<!-- ===== HERO ===== -->
+<section class="hero">
+  <div class="hero-bg">
+    <div class="hero-grid"></div>
+    <div class="hero-glow"></div>
+  </div>
+  <div class="container hero-content">
+    <div class="hero-left">
+      <p class="section-label">Software de alto impacto</p>
+      <h1 class="hero-title">
+        CONSTRUIMOS
+        <span class="highlight">EL FUTURO</span>
+        DIGITAL
+      </h1>
+      <p class="hero-description">
+        Diseñamos y desarrollamos software de alto impacto —
+        desde apps web modernas hasta arquitecturas cloud
+        enterprise. Código limpio, entrega predecible, resultados
+        que importan.
+      </p>
+      <div class="hero-actions">
+        <a href="#proyectos" class="btn btn-primary">Ver proyectos →</a>
+        <a href="#servicios" class="btn btn-ghost">Servicios ›</a>
+      </div>
+      <div class="hero-stats">
+        <div class="stat-item"><span class="stat-value">8<span class="stat-suffix">+</span></span><span class="stat-label">Años</span></div>
+        <div class="stat-item"><span class="stat-value">120<span class="stat-suffix">+</span></span><span class="stat-label">Proyectos</span></div>
+        <div class="stat-item"><span class="stat-value">98<span class="stat-suffix">%</span></span><span class="stat-label">Satisfacción</span></div>
+        <div class="stat-item"><span class="stat-value">3<span class="stat-suffix">+</span></span><span class="stat-label">Premios</span></div>
+      </div>
+    </div>
+    <div class="hero-right">
+      <div class="hero-visual">
+        <div class="dashboard-mockup">
+          <div class="mockup-header">
+            <div class="mockup-dots"><span class="dot red"></span><span class="dot yellow"></span><span class="dot green"></span></div>
+            <span class="mockup-url">dashboard.vmsoftware.com</span>
+          </div>
+          <div class="mockup-body">
+            <div class="mockup-sidebar">
+              <div class="sidebar-item active"></div><div class="sidebar-item"></div><div class="sidebar-item"></div><div class="sidebar-item"></div>
+            </div>
+            <div class="mockup-main">
+              <div class="mockup-chart">
+                <div class="chart-bar" style="height:40%"></div>
+                <div class="chart-bar" style="height:65%"></div>
+                <div class="chart-bar accent" style="height:85%"></div>
+                <div class="chart-bar" style="height:55%"></div>
+                <div class="chart-bar" style="height:70%"></div>
+                <div class="chart-bar" style="height:45%"></div>
+                <div class="chart-bar" style="height:90%"></div>
+              </div>
+              <div class="mockup-metrics">
+                <div class="metric-card"><span class="metric-value">24.7k</span><span class="metric-label">Usuarios</span></div>
+                <div class="metric-card accent"><span class="metric-value">$1.2M</span><span class="metric-label">Revenue</span></div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ===== TECH STACK ===== -->
+<section class="tech-stack">
+  <div class="tech-track">
+    <div class="tech-scroll">
+      <span class="tech-item">React</span><span class="tech-sep">•</span>
+      <span class="tech-item">Angular</span><span class="tech-sep">•</span>
+      <span class="tech-item">TypeScript</span><span class="tech-sep">•</span>
+      <span class="tech-item">Node.js</span><span class="tech-sep">•</span>
+      <span class="tech-item">Java</span><span class="tech-sep">•</span>
+      <span class="tech-item">Python</span><span class="tech-sep">•</span>
+      <span class="tech-item">AWS</span><span class="tech-sep">•</span>
+      <span class="tech-item">Docker</span><span class="tech-sep">•</span>
+      <span class="tech-item">PostgreSQL</span><span class="tech-sep">•</span>
+      <span class="tech-item">MongoDB</span><span class="tech-sep">•</span>
+      <span class="tech-item">GraphQL</span><span class="tech-sep">•</span>
+      <span class="tech-item">Kubernetes</span><span class="tech-sep">•</span>
+      <span class="tech-item">React</span><span class="tech-sep">•</span>
+      <span class="tech-item">Angular</span><span class="tech-sep">•</span>
+      <span class="tech-item">TypeScript</span><span class="tech-sep">•</span>
+      <span class="tech-item">Node.js</span><span class="tech-sep">•</span>
+      <span class="tech-item">Java</span><span class="tech-sep">•</span>
+      <span class="tech-item">Python</span><span class="tech-sep">•</span>
+      <span class="tech-item">AWS</span><span class="tech-sep">•</span>
+      <span class="tech-item">Docker</span><span class="tech-sep">•</span>
+      <span class="tech-item">PostgreSQL</span><span class="tech-sep">•</span>
+      <span class="tech-item">MongoDB</span><span class="tech-sep">•</span>
+      <span class="tech-item">GraphQL</span><span class="tech-sep">•</span>
+      <span class="tech-item">Kubernetes</span><span class="tech-sep">•</span>
+    </div>
+  </div>
+</section>
+
+<!-- ===== SERVICES ===== -->
+<section class="services" id="servicios">
+  <div class="container">
+    <div class="services-header">
+      <p class="section-label">Servicios</p>
+      <h2 class="section-title">LO QUE <span class="highlight">CONSTRUIMOS</span></h2>
+      <p class="section-subtitle">Soluciones digitales integrales para llevar tu negocio al siguiente nivel.</p>
+    </div>
+    <div class="services-grid">
+      <div class="service-card">
+        <div class="service-icon">⟨/⟩</div>
+        <h3 class="service-title">Desarrollo Web</h3>
+        <p class="service-desc">Aplicaciones web modernas y escalables con las últimas tecnologías del mercado. SPAs, PWAs y plataformas enterprise.</p>
+        <div class="service-tags"><span class="tag">React</span><span class="tag">Angular</span><span class="tag">Next.js</span></div>
+        <div class="service-number">01</div>
+      </div>
+      <div class="service-card">
+        <div class="service-icon">☁</div>
+        <h3 class="service-title">Cloud & DevOps</h3>
+        <p class="service-desc">Infraestructura cloud optimizada, CI/CD pipelines y arquitecturas serverless para máximo rendimiento.</p>
+        <div class="service-tags"><span class="tag">AWS</span><span class="tag">Docker</span><span class="tag">Kubernetes</span></div>
+        <div class="service-number">02</div>
+      </div>
+      <div class="service-card">
+        <div class="service-icon">📱</div>
+        <h3 class="service-title">Apps Móviles</h3>
+        <p class="service-desc">Aplicaciones nativas y multiplataforma con experiencias fluidas y alto rendimiento.</p>
+        <div class="service-tags"><span class="tag">React Native</span><span class="tag">Flutter</span><span class="tag">iOS</span></div>
+        <div class="service-number">03</div>
+      </div>
+      <div class="service-card">
+        <div class="service-icon">🔗</div>
+        <h3 class="service-title">APIs & Backend</h3>
+        <p class="service-desc">Microservicios robustos, APIs RESTful y GraphQL diseñados para escalar sin límites.</p>
+        <div class="service-tags"><span class="tag">Node.js</span><span class="tag">Java</span><span class="tag">GraphQL</span></div>
+        <div class="service-number">04</div>
+      </div>
+      <div class="service-card">
+        <div class="service-icon">🎨</div>
+        <h3 class="service-title">Diseño UX/UI</h3>
+        <p class="service-desc">Interfaces intuitivas y experiencias de usuario que convierten. Research, prototipado y design systems.</p>
+        <div class="service-tags"><span class="tag">Figma</span><span class="tag">Design Systems</span><span class="tag">UX</span></div>
+        <div class="service-number">05</div>
+      </div>
+      <div class="service-card">
+        <div class="service-icon">📊</div>
+        <h3 class="service-title">Data & Analytics</h3>
+        <p class="service-desc">Dashboards, visualización de datos y soluciones de business intelligence personalizadas.</p>
+        <div class="service-tags"><span class="tag">Python</span><span class="tag">Power BI</span><span class="tag">PostgreSQL</span></div>
+        <div class="service-number">06</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ===== PROJECTS ===== -->
+<section class="projects" id="proyectos">
+  <div class="container">
+    <div class="projects-header">
+      <div>
+        <p class="section-label">Proyectos</p>
+        <h2 class="section-title">CASOS QUE <span class="highlight">HABLAN SOLOS</span></h2>
+      </div>
+      <p class="projects-header-right">Soluciones reales para retos reales. Cada proyecto es una historia de éxito.</p>
+    </div>
+    <div class="projects-list">
+      <article class="project-card" style="background-color: #1a0f00">
+        <div class="project-bg-text">PAY</div>
+        <div class="project-content">
+          <div class="project-meta">
+            <span class="project-category">Fintech</span><span class="project-tag">Java</span><span class="project-tag">React</span><span class="project-tag">AWS</span>
+          </div>
+          <h3 class="project-title">PAYFLOW — <span class="project-subtitle">PAGOS B2B</span></h3>
+          <p class="project-desc">Plataforma empresarial de pagos con dashboard analítico en tiempo real. Procesamiento de transacciones masivas con arquitectura de microservicios.</p>
+          <a href="#" class="project-link">Ver caso de estudio ↗</a>
+        </div>
+        <div class="project-brand"><span class="brand-icon">V</span><span class="brand-text">Vm<strong>Software</strong></span></div>
+      </article>
+      <article class="project-card" style="background-color: #0a0f1a">
+        <div class="project-bg-text">SYN</div>
+        <div class="project-content">
+          <div class="project-meta">
+            <span class="project-category">SaaS</span><span class="project-tag">TypeScript</span><span class="project-tag">Node.js</span><span class="project-tag">MongoDB</span>
+          </div>
+          <h3 class="project-title">SYNCBOARD — <span class="project-subtitle">GESTIÓN DE EQUIPOS</span></h3>
+          <p class="project-desc">Herramienta de colaboración en tiempo real para equipos distribuidos. Tableros, sprints y métricas de productividad integradas.</p>
+          <a href="#" class="project-link">Ver caso de estudio ↗</a>
+        </div>
+        <div class="project-brand"><span class="brand-icon">V</span><span class="brand-text">Vm<strong>Software</strong></span></div>
+      </article>
+      <article class="project-card" style="background-color: #0f1a0a">
+        <div class="project-bg-text">LUX</div>
+        <div class="project-content">
+          <div class="project-meta">
+            <span class="project-category">E-Commerce</span><span class="project-tag">Next.js</span><span class="project-tag">Python</span><span class="project-tag">PostgreSQL</span>
+          </div>
+          <h3 class="project-title">LUXMARKET — <span class="project-subtitle">MARKETPLACE PREMIUM</span></h3>
+          <p class="project-desc">Marketplace de alto rendimiento con recomendaciones IA, pasarela de pagos multi-divisa y sistema de logística integrado.</p>
+          <a href="#" class="project-link">Ver caso de estudio ↗</a>
+        </div>
+        <div class="project-brand"><span class="brand-icon">V</span><span class="brand-text">Vm<strong>Software</strong></span></div>
+      </article>
+    </div>
+  </div>
+</section>
+
+<!-- ===== STATS ===== -->
+<section class="stats-section" id="nosotros">
+  <div class="container">
+    <div class="stats-header">
+      <p class="section-label">Por qué nosotros</p>
+      <h2 class="section-title">NÚMEROS QUE <span class="highlight">RESPALDAN</span></h2>
+    </div>
+    <div class="stats-grid">
+      <div class="stats-card"><span class="stats-icon">🎯</span><span class="stats-value">98%</span><span class="stats-label">Proyectos a tiempo</span><span class="stats-desc">Metodología ágil con sprints predecibles</span></div>
+      <div class="stats-card"><span class="stats-icon">⚡</span><span class="stats-value">3x</span><span class="stats-label">Más rápido</span><span class="stats-desc">Gracias a nuestros frameworks internos</span></div>
+      <div class="stats-card"><span class="stats-icon">🛡</span><span class="stats-value">99.9%</span><span class="stats-label">Uptime garantizado</span><span class="stats-desc">Infraestructura cloud de alta disponibilidad</span></div>
+      <div class="stats-card"><span class="stats-icon">♻</span><span class="stats-value">85%</span><span class="stats-label">Clientes recurrentes</span><span class="stats-desc">Relaciones basadas en confianza</span></div>
+    </div>
+  </div>
+</section>
+
+<!-- ===== CONTACT ===== -->
+<section class="contact" id="contacto">
+  <div class="container">
+    <div class="contact-inner">
+      <div class="contact-left">
+        <p class="section-label">Contacto</p>
+        <h2 class="contact-title">¿LISTO PARA <span class="highlight">EMPEZAR?</span></h2>
+        <p class="contact-desc">Cuéntanos sobre tu proyecto y te responderemos en menos de 24 horas. Sin compromiso, solo soluciones.</p>
+        <div class="contact-info">
+          <div class="info-item">
+            <span class="info-icon">✉</span>
+            <div><span class="info-label">Email</span><a href="mailto:hola@vmsoftware.com" class="info-value">hola@vmsoftware.com</a></div>
+          </div>
+          <div class="info-item">
+            <span class="info-icon">📍</span>
+            <div><span class="info-label">Ubicación</span><span class="info-value">Remoto — Global</span></div>
+          </div>
+        </div>
+      </div>
+      <div class="contact-right">
+        <form class="contact-form" onsubmit="return false;">
+          <div class="form-row">
+            <div class="form-group"><label>Nombre</label><input type="text" placeholder="Tu nombre"></div>
+            <div class="form-group"><label>Email</label><input type="email" placeholder="tu@email.com"></div>
+          </div>
+          <div class="form-group"><label>Asunto</label><input type="text" placeholder="¿En qué podemos ayudarte?"></div>
+          <div class="form-group"><label>Mensaje</label><textarea rows="5" placeholder="Cuéntanos sobre tu proyecto..."></textarea></div>
+          <button type="submit" class="btn btn-primary btn-submit">Enviar mensaje →</button>
+        </form>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ===== FOOTER ===== -->
+<footer class="footer">
+  <div class="container">
+    <div class="footer-top">
+      <div class="footer-brand-col">
+        <a href="#" class="logo" style="margin-bottom:16px;display:inline-flex">
+          <span class="logo-icon" style="width:28px;height:28px;font-size:0.9rem;border-radius:5px">V</span>
+          <span class="logo-text" style="font-size:1.1rem">Vm<span class="logo-bold">Software</span></span>
+        </a>
+        <p class="footer-desc">Construimos software que impulsa negocios. Código limpio, resultados reales.</p>
+        <div class="footer-social">
+          <a href="#" class="social-link">LinkedIn</a>
+          <a href="#" class="social-link">GitHub</a>
+          <a href="#" class="social-link">Twitter</a>
+        </div>
+      </div>
+      <div class="footer-col">
+        <h4 class="footer-col-title">Servicios</h4>
+        <ul>
+          <li><a href="#">Desarrollo Web</a></li>
+          <li><a href="#">Cloud & DevOps</a></li>
+          <li><a href="#">Apps Móviles</a></li>
+          <li><a href="#">APIs & Backend</a></li>
+        </ul>
+      </div>
+      <div class="footer-col">
+        <h4 class="footer-col-title">Empresa</h4>
+        <ul>
+          <li><a href="#nosotros">Nosotros</a></li>
+          <li><a href="#proyectos">Proyectos</a></li>
+          <li><a href="#">Blog</a></li>
+          <li><a href="#">Carreras</a></li>
+        </ul>
+      </div>
+      <div class="footer-col">
+        <h4 class="footer-col-title">Legal</h4>
+        <ul>
+          <li><a href="#">Política de Privacidad</a></li>
+          <li><a href="#">Términos de Uso</a></li>
+          <li><a href="#">Cookies</a></li>
+        </ul>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <p class="footer-copy">&copy; 2026 VmSoftware. Todos los derechos reservados.</p>
+      <p class="footer-tagline">Hecho con <span class="heart">❤</span> desde Latinoamérica</p>
+    </div>
+  </div>
+</footer>
+
+<script>
+  // Header scroll effect
+  window.addEventListener('scroll', () => {
+    document.getElementById('header').classList.toggle('scrolled', window.scrollY > 50);
+  });
+</script>
+</body>
+</html>

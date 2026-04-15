@@ -1,0 +1,47 @@
+<section class="projects" id="proyectos">
+  <div class="container">
+    <span class="section-label">Proyectos</span>
+    <h2 class="section-title" appScrollAnimate>
+      Trabajo que <span class="highlight">habla</span> por si mismo
+    </h2>
+    <p class="section-subtitle" appScrollAnimate animationDelay="0.1s">
+      Cada proyecto es una historia de transformacion digital. Estos son algunos de nuestros casos de exito.
+    </p>
+
+    <div class="projects-list">
+      @for (project of projects; track project.title; let i = $index) {
+        <div class="project-card" appScrollAnimate [animationDelay]="(i * 0.15) + 's'" appMouseGlow>
+          <div class="project-visual" [style.background]="project.gradient">
+            <div class="project-grid-overlay"></div>
+            <span class="project-big-text">{{ project.accentText }}</span>
+          </div>
+
+          <div class="project-accent-line"></div>
+
+          <div class="project-content">
+            <div class="project-meta">
+              <span class="project-category">{{ project.category }}</span>
+            </div>
+
+            <h3 class="project-title">{{ project.title }}</h3>
+            <p class="project-subtitle">{{ project.subtitle }}</p>
+            <p class="project-desc">{{ project.description }}</p>
+
+            <div class="project-tags">
+              @for (tag of project.tags; track tag) {
+                <span class="tag">{{ tag }}</span>
+              }
+            </div>
+
+            <a href="#" class="project-link">
+              <span>Ver caso de estudio</span>
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+                <line x1="7" y1="17" x2="17" y2="7"/><polyline points="7 7 17 7 17 17"/>
+              </svg>
+            </a>
+          </div>
+        </div>
+      }
+    </div>
+  </div>
+</section>

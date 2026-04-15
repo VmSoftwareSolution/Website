@@ -1,0 +1,94 @@
+<section class="hero" id="inicio">
+  <div class="hero-bg">
+    <div class="hero-grid"></div>
+    <div class="hero-radial"></div>
+  </div>
+
+  <div class="hero-center">
+    <div class="hero-badge">
+      <span class="badge-dot"></span>
+      <span>Disponibles para nuevos proyectos</span>
+    </div>
+
+    <h1 class="hero-headline">
+      <span class="line line-1">
+        <span class="word" style="--i:0">Transformamos</span>
+        <span class="word" style="--i:1">ideas</span>
+        <span class="word" style="--i:2">en</span>
+      </span>
+      <span class="line line-2">
+        <span class="word gw" style="--i:3">software</span>
+        <span class="word gw" style="--i:4">que</span>
+        <span class="word gw" style="--i:5">escala</span>
+      </span>
+    </h1>
+
+    <p class="hero-sub">
+      Arquitectura cloud, apps web y mobile, APIs de alto rendimiento.
+      Codigo limpio, entregas predecibles, resultados medibles.
+    </p>
+
+    <div class="hero-ctas">
+      <a href="#contacto" class="btn btn-primary">
+        <span>Agendar llamada</span>
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg>
+      </a>
+      <a href="#proyectos" class="btn btn-outline"><span>Ver proyectos</span></a>
+    </div>
+
+    <div class="hero-trust">
+      <div class="trust-avatars">
+        <div class="avatar a1">JM</div>
+        <div class="avatar a2">SR</div>
+        <div class="avatar a3">LC</div>
+        <div class="avatar a4">+5</div>
+      </div>
+      <div class="trust-text">
+        <span class="trust-number">120+ proyectos</span>
+        <span class="trust-label">entregados exitosamente</span>
+      </div>
+    </div>
+  </div>
+
+  <div class="hero-showcase">
+    <div class="terminal">
+      <div class="t-header">
+        <div class="t-dots"><span class="dot r"></span><span class="dot y"></span><span class="dot g"></span></div>
+        <span class="t-title">~/vmsoftware</span>
+        <span class="t-live">LIVE</span>
+      </div>
+      <div class="t-body">
+        <div class="t-cmd">
+          <span class="t-prompt">&gt;</span>
+          <span class="t-command">npm run deploy</span>
+          @if (showCursor) { <span class="t-cursor"></span> }
+        </div>
+        <div class="t-output">
+          @for (line of terminalLines; track $index) {
+            <span [class]="'tl tl-' + line.type">{{ line.text }}</span>
+          }
+        </div>
+        @if (showMetrics) {
+          <div class="t-metrics">
+            <div class="tm"><span class="tm-v orange">99.9%</span><span class="tm-l">Uptime</span></div>
+            <div class="tm"><span class="tm-v">42ms</span><span class="tm-l">Latency</span></div>
+            <div class="tm"><span class="tm-v green">A+</span><span class="tm-l">Score</span></div>
+          </div>
+        }
+      </div>
+    </div>
+  </div>
+
+  <div class="hero-stats-bar">
+    <div class="container stats-container">
+      @for (stat of stats; track stat.label; let i = $index) {
+        <div class="stat-item" appScrollAnimate [animationDelay]="(i * 0.12) + 's'">
+          <span class="stat-number">
+            <span [appCountUp]="stat.value" [countSuffix]="stat.suffix" [countDuration]="2000"></span>
+          </span>
+          <span class="stat-label">{{ stat.label }}</span>
+        </div>
+      }
+    </div>
+  </div>
+</section>

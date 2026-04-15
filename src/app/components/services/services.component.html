@@ -1,0 +1,72 @@
+<section class="services" id="servicios">
+  <div class="container">
+    <span class="section-label">Servicios</span>
+    <h2 class="section-title" appScrollAnimate>
+      Soluciones que <span class="highlight">impulsan</span> tu negocio
+    </h2>
+    <p class="section-subtitle" appScrollAnimate animationDelay="0.1s">
+      Cada proyecto es unico. Combinamos tecnologia de punta con estrategia para entregar resultados reales.
+    </p>
+
+    <div class="bento-grid">
+      @for (service of services; track service.title; let i = $index) {
+        <div
+          class="service-card glow-border shimmer-card"
+          [attr.data-index]="i"
+          appScrollAnimate
+          [animationDelay]="(i * 0.08) + 's'"
+          appMouseGlow
+          appTilt
+        >
+          <div class="shimmer-sweep"></div>
+
+          <div class="service-icon">
+            @switch (service.icon) {
+              @case ('web') {
+                <svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+                  <rect x="2" y="3" width="20" height="14" rx="2"/><line x1="8" y1="21" x2="16" y2="21"/><line x1="12" y1="17" x2="12" y2="21"/>
+                </svg>
+              }
+              @case ('cloud') {
+                <svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+                  <path d="M18 10h-1.26A8 8 0 1 0 9 20h9a5 5 0 0 0 0-10z"/>
+                </svg>
+              }
+              @case ('mobile') {
+                <svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+                  <rect x="5" y="2" width="14" height="20" rx="2"/><line x1="12" y1="18" x2="12.01" y2="18"/>
+                </svg>
+              }
+              @case ('api') {
+                <svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+                  <polyline points="16 18 22 12 16 6"/><polyline points="8 6 2 12 8 18"/>
+                </svg>
+              }
+              @case ('design') {
+                <svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+                  <circle cx="12" cy="12" r="10"/><path d="M12 2a14.5 14.5 0 0 0 0 20 14.5 14.5 0 0 0 0-20"/><line x1="2" y1="12" x2="22" y2="12"/>
+                </svg>
+              }
+              @case ('data') {
+                <svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+                  <line x1="18" y1="20" x2="18" y2="10"/><line x1="12" y1="20" x2="12" y2="4"/><line x1="6" y1="20" x2="6" y2="14"/>
+                </svg>
+              }
+            }
+          </div>
+
+          <h3 class="service-title">{{ service.title }}</h3>
+          <p class="service-desc">{{ service.description }}</p>
+
+          <div class="service-tags">
+            @for (tag of service.tags; track tag) {
+              <span class="tag">{{ tag }}</span>
+            }
+          </div>
+
+          <span class="service-number">{{ (i + 1).toString().padStart(2, '0') }}</span>
+        </div>
+      }
+    </div>
+  </div>
+</section>

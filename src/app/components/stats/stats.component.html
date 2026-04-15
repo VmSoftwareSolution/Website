@@ -1,0 +1,16 @@
+<section class="stats-section">
+  <div class="container">
+    <div class="stats-grid">
+      @for (stat of stats; track stat.label; let i = $index) {
+        <div class="stat-card" appScrollAnimate [animationDelay]="(i * 0.1) + 's'">
+          <div class="stat-glow"></div>
+          <span class="stat-value">
+            <span [appCountUp]="stat.value" [countSuffix]="stat.suffix" [countDuration]="2500"></span>
+          </span>
+          <span class="stat-label">{{ stat.label }}</span>
+          <p class="stat-description">{{ stat.description }}</p>
+        </div>
+      }
+    </div>
+  </div>
+</section>
